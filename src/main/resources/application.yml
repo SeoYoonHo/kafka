@@ -1,12 +1,17 @@
 spring:
-  kafka:
-    consumer:
-      bootstrap-servers: b-1.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-3.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-2.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092
-      group-id: foo
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      bootstrap-servers: b-1.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-3.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-2.democluster1.ya11o8.c2.kafka.ap-northeast-2.amazonaws.com:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+   kafka:
+      bootstrap-servers: b-2-public.democluster5.xth65z.c2.kafka.ap-northeast-2.amazonaws.com:9198,b-1-public.democluster5.xth65z.c2.kafka.ap-northeast-2.amazonaws.com:9198,b-3-public.democluster5.xth65z.c2.kafka.ap-northeast-2.amazonaws.com:9198
+      properties:
+         security.protocol: SASL_SSL
+         sasl.mechanism: AWS_MSK_IAM
+         sasl.jaas.config: software.amazon.msk.auth.iam.IAMLoginModule required;
+         sasl.client.callback.handler.class: software.amazon.msk.auth.iam.IAMClientCallbackHandler
+         enable.idempotence: false
+      consumer:
+         group-id: foo
+         auto-offset-reset: earliest
+         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+         value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      producer:
+         key-serializer: org.apache.kafka.common.serialization.StringSerializer
+         value-serializer: org.apache.kafka.common.serialization.StringSerializer
